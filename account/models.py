@@ -4,6 +4,7 @@ from django.utils.crypto import get_random_string
 
 class UserManager(BaseUserManager):
     def _create(self, email, password, **extra_fields):
+        # username = None
         if not email:
             raise ValueError('Поле email не может быть пустым')
         email = self.normalize_email(email)

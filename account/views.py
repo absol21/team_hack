@@ -57,3 +57,4 @@ class ForgotPasswordCompleteView(APIView):
             serializer.set_new_password()
             return Response('Пароль успешно изменен')
         
+
