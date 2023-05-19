@@ -13,7 +13,7 @@ class RatingInline(admin.TabularInline):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_at', 'category', 'get_rating', 'get_likes', 'song', 'get_favorites')
+    list_display = ('title', 'created_at', 'category', 'get_rating', 'get_likes', 'song', 'get_favorites', 'image')
     inlines = [RatingInline]
     search_fields = ['title', 'body']
     ordering = ['created_at']

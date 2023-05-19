@@ -4,11 +4,17 @@ from rest_framework import viewsets
 from .serializers import CategorySerializer, PostSerializer, RatingSerializer, CommentCreateSerializer#, FavoriteSerializer
 from .permissions import IsOwnerPermission, IsAdminOrActivePermission
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 
+from PIL import Image
+from io import BytesIO
 
-class CategoryListView(generics.ListAPIView):
+from .tasks import some_func
+
+
+
+class CategoryListView(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
@@ -73,6 +79,35 @@ class PostViewSet(viewsets.ModelViewSet):
             message = 'favorited'
         return Response(message, status=201)
 
+    @action(['POST'], detail=True)
+    def process_image(self, request, pk=None):
+        post = self.get_object()
+
+        # Получить изображение из запроса
+        image_file = request.FILES.get('image')
+        if not image_file:
+            return Response('No image provided. Image processing skipped.', status=200)
+
+        # Открыть изображение с помощью Pillow
+        try:
+            image = Image.open(image_file)
+        except Exception as e:
+            return Response(str(e), status=400)
+
+        # Произвести необходимую обработку изображения
+        # Например, изменить размер изображения
+        image.thumbnail((1600, 1900))
+
+        # Сохранить обработанное изображение в памяти
+        output = BytesIO()
+        image.save(output, format='JPEG')
+        output.seek(0)
+
+        # Сохранить изображение в поле ImageField модели Post
+        post.image.save(image_file.name, output)
+
+        return Response('Image processed and saved', status=200)
+
 
 class RatingViewSet(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
@@ -106,3 +141,10 @@ class RatingViewSet(viewsets.ModelViewSet):
 class CommentView(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentCreateSerializer
+
+
+@api_view(['GET'])
+def some_view(request):
+    some_func.delay()
+    return Response("celery запустил эту функцию", 200)
+

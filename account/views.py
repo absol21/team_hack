@@ -3,10 +3,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.generics import ListAPIView
 from .permissions import IsActivePermissions
-from .serializers import RegistrationSerializer, ActivationSerializer, LoginSerializer, ChangePasswordSerializer, ForgotPasswordSerializer, ForgotPasswordCompleteSerializer
+from .serializers import RegistrationSerializer, ActivationSerializer, LoginSerializer, ChangePasswordSerializer, ForgotPasswordSerializer, ForgotPasswordCompleteSerializer, PersonSerializer
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class RegistrationView(APIView):
     def post(self, request):
@@ -58,3 +60,7 @@ class ForgotPasswordCompleteView(APIView):
             return Response('Пароль успешно изменен')
         
 
+
+class PersonView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = PersonSerializer

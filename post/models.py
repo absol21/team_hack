@@ -22,7 +22,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     title = models.CharField(max_length=40)
     body = models.TextField(blank=True)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(upload_to='posts', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='posts') 
@@ -64,4 +64,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment from {self.author.name}  to  {self.post.title}'
+
+
 

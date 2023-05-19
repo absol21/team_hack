@@ -2,3 +2,7 @@ django
 djangorestframework
 psycopg2-binary
 python-decouple
+python-telegram-bot
+drf-yasg
+redis
+celery

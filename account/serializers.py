@@ -163,7 +163,7 @@ class ForgotPasswordCompleteSerializer(serializers.Serializer):
         email = data.get('email')
         code = data.get('code')
         password1 = data.get('password')
-        password2 = data.get('password_confirm')
+        password2 = data.pop('password_confirm')
 
         if not User.objects.filter(email=email, activation_code=code).exists():
             raise serializers.ValidationError(
@@ -186,9 +186,10 @@ class ForgotPasswordCompleteSerializer(serializers.Serializer):
         user.save()
     
 
-
-
-
+class PersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 
 
 

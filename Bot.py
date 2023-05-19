@@ -15,5 +15,7 @@ inline_keyboard = types.InlineKeyboardMarkup()
 @bot.meesage_handler(commands=['start'])
 def start(message):
     chat_id = message.chat.id
-    btn1 = types.InlineKeyboardButton('воити', callback_data='account')
-    btn2 =  types.InlineKeyboardButton('регистрация', callback_data='account')
+    btn1 = types.InlineKeyboardButton('последние 10 песни', callback_data='music')
+
+
+
