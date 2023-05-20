@@ -2,6 +2,9 @@ from django.db import models
 from slugify import slugify
 from django.contrib.auth import get_user_model
 
+from bs4 import BeautifulSoup
+import requests
+
 User = get_user_model()
 
 

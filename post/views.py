@@ -7,6 +7,11 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 
+import logging
+
+
+logger = logging.getLogger(__name__)
+
 from PIL import Image
 from io import BytesIO
 
@@ -92,7 +97,9 @@ class PostViewSet(viewsets.ModelViewSet):
         try:
             image = Image.open(image_file)
         except Exception as e:
+            logger.exception('An error occured')
             return Response(str(e), status=400)
+
 
         # Произвести необходимую обработку изображения
         # Например, изменить размер изображения

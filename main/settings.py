@@ -41,11 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework', 
+    'rest_framework',
     'rest_framework.authtoken',
+    # 'bs4',
+    # 'requests',
     'django_filters',
     'drf_yasg',
-    'post', 
+    'post',
     'account'
 ]
 
@@ -175,7 +177,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'debug.log',
+            'filename': 'main/debug.log',
         },
     },
     'loggers': {

@@ -6,3 +6,5 @@ python-telegram-bot
 drf-yasg
 redis
 celery
+beautifulsoup4
+lxml
