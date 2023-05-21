@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
     'post',
-    'account'
+    'account',
+    'redis'
 ]
 
 MIDDLEWARE = [

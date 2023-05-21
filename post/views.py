@@ -101,17 +101,17 @@ class PostViewSet(viewsets.ModelViewSet):
             return Response(str(e), status=400)
 
 
-        # Произвести необходимую обработку изображения
-        # Например, изменить размер изображения
-        image.thumbnail((1600, 1900))
-
-        # Сохранить обработанное изображение в памяти
-        output = BytesIO()
-        image.save(output, format='JPEG')
-        output.seek(0)
-
-        # Сохранить изображение в поле ImageField модели Post
-        post.image.save(image_file.name, output)
+        # # Произвести необходимую обработку изображения
+        # # Например, изменить размер изображения
+        # image.thumbnail((1600, 1900))
+        #
+        # # Сохранить обработанное изображение в памяти
+        # output = BytesIO()
+        # image.save(output, format='JPEG')
+        # output.seek(0)
+        #
+        # # Сохранить изображение в поле ImageField модели Post
+        # post.image.save(image_file.name, output)
 
         return Response('Image processed and saved', status=200)
 
